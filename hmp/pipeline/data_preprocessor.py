@@ -3,7 +3,7 @@
 """
 
 import pandas as pd
-from pipeline import hmp_utils
+from pipeline import utils
 
 class HMPDataPreprocessor:
     """
@@ -14,7 +14,7 @@ class HMPDataPreprocessor:
         self.metadata = self._load_metadata(metadata_path)
         self.abundance = self._load_abundance(abundance_path)
         self.df_microbiome = self._merge()
-        self.df_microbiome = hmp_utils.abundance_validator(self.df_microbiome, tol=tol)
+        self.df_microbiome = utils.abundance_validator(self.df_microbiome, tol=tol)
         self._rename_taxonomy_cols(rank)
         self._collapse_duplicated_taxa()
         self._compute_body_site_means()
@@ -46,7 +46,7 @@ class HMPDataPreprocessor:
         """Rename taxonomy columns in the DataFrame using a selected taxonomic rank."""
         cols = list(self.df_microbiome.columns)
         for i in range(start_col, len(cols)):
-            tax_dict = hmp_utils.parse_taxonomy(cols[i])
+            tax_dict = utils.parse_taxonomy(cols[i])
             cols[i] = tax_dict.get(rank, cols[i])
         self.df_microbiome.columns = cols
         print(f"[INFO] Taxonomy columns renamed to {rank} level.")
