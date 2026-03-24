@@ -16,6 +16,7 @@ print("--- PROGRAM STARTED ---")
 for file in os.listdir(raw_path):
     print(f"[INFO] Processing file {file}...")
     if not file.endswith(".fa"):  
+        print(f"[SKIP] Not a FASTA file: {file}")
         continue
 
     dir_name = f"P{file[1:3]}"
@@ -29,7 +30,7 @@ for file in os.listdir(raw_path):
         for i in tqdm(range(0, len(lines), 2)):
             header = lines[i].strip()
             seq = lines[i + 1].strip()
-            contig_id = header[1:].split()[0]  # ID bez '>'
+            contig_id = header[1:].split()[0]  # ID without '>'
             
             out_path = os.path.join(dir_path, f"{dir_name}_{contig_id}.txt")
             with open(out_path, "w") as out:

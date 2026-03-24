@@ -1,0 +1,9 @@
+config.ini
+/hmp/data
+/hmp/plots
+/plots
+__pycache__/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
