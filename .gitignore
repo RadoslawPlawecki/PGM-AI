@@ -1,6 +1,9 @@
 config.ini
-/hmp/data
+/gpd/data
 /hmp/plots
+/gdp/data
+/hmp/plots
+/hmp/data
 /plots
 __pycache__/
 __pycache__/

@@ -21,7 +21,7 @@ fcgr_path = config["files"]["fcgr_path"]
 
 files = [f for f in os.listdir(sequences_path) if f.endswith(".txt")]
 
-k_mers = [10]
+k_mers = [6, 7, 8]
 
 print("--- PROGRAM STARTED ---")
 for k_mer in k_mers:

@@ -10,6 +10,7 @@ from sklearn.metrics import adjusted_rand_score
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 
+
 class MatrixClustering:
     """
     Class to perform clustering on patient matrices with multiple algorithms.

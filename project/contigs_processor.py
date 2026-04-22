@@ -12,7 +12,7 @@ class ContigsProcessor:
         self.config = configparser.ConfigParser()
         self.config.read(config_path)
 
-        self.raw_path = self.config["files"]["raw_path"]
+        self.metagenomes_path = self.config["files"]["metagenomes_path"]
         self.sequences_path = self.config["files"]["sequences_path"]
 
         os.makedirs(self.sequences_path, exist_ok=True)
@@ -22,7 +22,7 @@ class ContigsProcessor:
     def process_all(self):
         print("--- PROGRAM STARTED ---")
 
-        for file in os.listdir(self.raw_path):
+        for file in os.listdir(self.metagenomes_path):
             print(f"[INFO] Processing file {file}...")
 
             if not file.endswith(".fa"):
@@ -36,7 +36,7 @@ class ContigsProcessor:
 
     def process_file(self, file):
         dir_name = f"P{file[1:3]}"
-        file_path = os.path.join(self.raw_path, file)
+        file_path = os.path.join(self.metagenomes_path, file)
         out_path = os.path.join(self.sequences_path, f"{dir_name}_S.txt")
 
         seq = ""

@@ -88,24 +88,6 @@ class FCGR:
         """
         rows = cols = self.img_size
         return np.zeros((rows, cols))
-    
-    def point_pixel_map(self):
-        """
-        Method to map computed points to pixels.
-        
-        :param self: a reference.
-        :return locations of pixels:
-        """
-        points = self.compute_points()
-        const = self.img_size
-        pixels = []
-        for i in range(len(points)):
-            if i < self.k_mer - 1:
-                continue
-            r = min(int(points[i][1] * const), const - 1)
-            c = min(int(points[i][0] * const), const - 1)
-            pixels.append((r, c))
-        return pixels
 
     def fill_matrix(self):
         """
@@ -115,8 +97,22 @@ class FCGR:
         :return filled matrix:
         """
         matrix = self.__init_matrix()
-        pixels = self.point_pixel_map()
-        for (r, c) in pixels:
+        const = self.img_size
+        point = self.start
+        seq = self.sequence
+        for i, char in enumerate(seq):
+            if char == 'A':
+                point = self.__movement_rule(point, self.ade)
+            elif char == 'C':
+                point = self.__movement_rule(point, self.cyt)
+            elif char == 'G':
+                point = self.__movement_rule(point, self.gua)
+            elif char == 'T':
+                point = self.__movement_rule(point, self.thy)
+            if i < self.k_mer - 1:
+                continue
+            r = min(int(point[1] * const), const - 1)
+            c = min(int(point[0] * const), const - 1)
             matrix[r][c] += 1
         return matrix
     
